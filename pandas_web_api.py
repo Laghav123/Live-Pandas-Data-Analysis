@@ -38,29 +38,27 @@ def create_app():
 app = create_app()
 
 
-@app.route('/')
+@app.route("/")
 def index():
-    return redirect('plot')
-    
+    return redirect("plot")
 
 
-
-@app.route('/plot')
+@app.route("/plot")
 def plot():
-    print('Rendering plot')
-    n_entries = request.args.get('n_entries', default=50, type=int)
+    print("Rendering plot")
+    n_entries = request.args.get("n_entries", default=50, type=int)
     n_entries = n_entries if 1 < n_entries <= 50 else 50
-    image_name = str("this_changes_everytime") + '.png'
+    image_name = str("this_changes_everytime") + ".png"
 
     image_filepath = path.join(image_name)
 
     fig = ss.plot(n_entries)
     if not fig:
-        return 'Data is not synced yet'
+        return "Data is not synced yet"
     fig.savefig(image_filepath)
     # return render_template('plot.html', name='Plot', url=image_filepath)
-    return send_file(image_filepath, mimetype='image/png')
+    return send_file(image_filepath, mimetype="image/png")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=False)
