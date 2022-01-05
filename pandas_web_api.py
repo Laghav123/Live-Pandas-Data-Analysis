@@ -44,6 +44,7 @@ def index():
     
 
 
+
 @app.route('/plot')
 def plot():
     print('Rendering plot')
